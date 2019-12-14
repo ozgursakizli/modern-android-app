@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_countries_list"
+            android:id="@+id/rv_launches_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_list_error"
+            android:id="@+id/tv_error"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="center"

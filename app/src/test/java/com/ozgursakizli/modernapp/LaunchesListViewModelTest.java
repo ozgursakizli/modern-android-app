@@ -1,8 +1,9 @@
 package com.ozgursakizli.modernapp;
 
-import com.ozgursakizli.modernapp.model.CountriesService;
-import com.ozgursakizli.modernapp.model.CountryModel;
-import com.ozgursakizli.modernapp.viewmodel.CountryListViewModel;
+import com.ozgursakizli.modernapp.model.LaunchLinks;
+import com.ozgursakizli.modernapp.model.LaunchesModel;
+import com.ozgursakizli.modernapp.model.LaunchesService;
+import com.ozgursakizli.modernapp.viewmodel.LaunchesListViewModel;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,18 +24,18 @@ import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.internal.schedulers.ExecutorScheduler;
 import io.reactivex.plugins.RxJavaPlugins;
 
-public class CountryListViewModelTest {
+public class LaunchesListViewModelTest {
 
     @Rule
     public InstantTaskExecutorRule rule = new InstantTaskExecutorRule();
 
     @Mock
-    CountriesService countriesService;
+    LaunchesService launchesService;
 
     @InjectMocks
-    CountryListViewModel listViewModel = new CountryListViewModel();
+    LaunchesListViewModel listViewModel = new LaunchesListViewModel();
 
-    private Single<List<CountryModel>> testSingle;
+    private Single<List<LaunchesModel>> testSingle;
 
     @Before
     public void setup() {
@@ -43,23 +44,23 @@ public class CountryListViewModelTest {
 
     @Test
     public void getCountriesSuccess() {
-        CountryModel countryModel = new CountryModel("countryName", "capital", "flag");
-        ArrayList<CountryModel> countriesList = new ArrayList<>();
-        countriesList.add(countryModel);
+        LaunchesModel launchesModel = new LaunchesModel("missionName", "2020", new LaunchLinks("url"));
+        ArrayList<LaunchesModel> countriesList = new ArrayList<>();
+        countriesList.add(launchesModel);
         testSingle = Single.just(countriesList);
-        Mockito.when(countriesService.getCountries()).thenReturn(testSingle);
+        Mockito.when(launchesService.getLaunches()).thenReturn(testSingle);
         listViewModel.refresh();
-        Assert.assertEquals(1, listViewModel.countries.getValue().size());
-        Assert.assertEquals(false, listViewModel.countryLoadError.getValue());
+        Assert.assertEquals(1, listViewModel.launches.getValue().size());
+        Assert.assertEquals(false, listViewModel.launchesLoadError.getValue());
         Assert.assertEquals(false, listViewModel.loading.getValue());
     }
 
     @Test
     public void getCountriesFail() {
         testSingle = Single.error(new Throwable());
-        Mockito.when(countriesService.getCountries()).thenReturn(testSingle);
+        Mockito.when(launchesService.getLaunches()).thenReturn(testSingle);
         listViewModel.refresh();
-        Assert.assertEquals(true, listViewModel.countryLoadError.getValue());
+        Assert.assertEquals(true, listViewModel.launchesLoadError.getValue());
         Assert.assertEquals(false, listViewModel.loading.getValue());
     }
 

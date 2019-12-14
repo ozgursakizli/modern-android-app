@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.ozgursakizli.modernapp.R;
 import com.ozgursakizli.modernapp.view.adapters.CountryListAdapter;
-import com.ozgursakizli.modernapp.viewmodel.CountryListViewModel;
+import com.ozgursakizli.modernapp.viewmodel.LaunchesListViewModel;
 
 import java.util.ArrayList;
 
@@ -23,14 +23,14 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout refreshLayout;
-    @BindView(R.id.rv_countries_list)
-    RecyclerView rvCountries;
-    @BindView(R.id.tv_list_error)
+    @BindView(R.id.rv_launches_list)
+    RecyclerView rvLaunches;
+    @BindView(R.id.tv_error)
     TextView tvError;
     @BindView(R.id.pb_loading_view)
     ProgressBar pbLoadingView;
 
-    private CountryListViewModel viewModel;
+    private LaunchesListViewModel viewModel;
     private CountryListAdapter adapter;
 
     @Override
@@ -39,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         adapter = new CountryListAdapter(new ArrayList<>());
-        viewModel = ViewModelProviders.of(this).get(CountryListViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(LaunchesListViewModel.class);
         viewModel.refresh();
-        rvCountries.setLayoutManager(new LinearLayoutManager(this));
-        rvCountries.setAdapter(adapter);
+        rvLaunches.setLayoutManager(new LinearLayoutManager(this));
+        rvLaunches.setAdapter(adapter);
 
         refreshLayout.setOnRefreshListener(() -> {
             viewModel.refresh();
@@ -53,13 +53,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void observeViewModel() {
-        viewModel.countries.observe(this, countryModels -> {
+        viewModel.launches.observe(this, countryModels -> {
             if (countryModels != null) {
                 adapter.updateCountries(countryModels);
-                rvCountries.setVisibility(View.VISIBLE);
+                rvLaunches.setVisibility(View.VISIBLE);
             }
         });
-        viewModel.countryLoadError.observe(this, isError -> {
+        viewModel.launchesLoadError.observe(this, isError -> {
             if (isError != null) {
                 tvError.setVisibility(isError ? View.VISIBLE : View.GONE);
             }
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (isLoading) {
                     tvError.setVisibility(View.GONE);
-                    rvCountries.setVisibility(View.GONE);
+                    rvLaunches.setVisibility(View.GONE);
                 }
             }
         });

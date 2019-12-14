@@ -1,7 +1,7 @@
 package com.ozgursakizli.modernapp.di;
 
-import com.ozgursakizli.modernapp.model.CountriesApi;
-import com.ozgursakizli.modernapp.model.CountriesService;
+import com.ozgursakizli.modernapp.model.LaunchesApi;
+import com.ozgursakizli.modernapp.model.LaunchesService;
 
 import dagger.Module;
 import dagger.Provides;
@@ -12,21 +12,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 class ApiModule {
 
-    private static final String BASE_URL = "https://raw.githubusercontent.com";
+    private static final String BASE_URL = "https://api.spacexdata.com/v3/";
 
     @Provides
-    CountriesApi provideCountriesApi() {
+    LaunchesApi provideLaunchesApi() {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
-                .create(CountriesApi.class);
+                .create(LaunchesApi.class);
     }
 
     @Provides
-    CountriesService provideCountriesService() {
-        return CountriesService.getInstance();
+    LaunchesService provideLaunchesService() {
+        return LaunchesService.getInstance();
     }
 
 }

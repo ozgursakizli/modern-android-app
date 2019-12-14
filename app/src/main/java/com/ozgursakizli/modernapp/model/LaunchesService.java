@@ -8,22 +8,22 @@ import javax.inject.Inject;
 
 import io.reactivex.Single;
 
-public class CountriesService {
+public class LaunchesService {
 
-    private static volatile CountriesService instance;
+    private static volatile LaunchesService instance;
 
     @Inject
-    CountriesApi api;
+    LaunchesApi api;
 
-    private CountriesService() {
+    private LaunchesService() {
         DaggerApiComponent.create().inject(this);
     }
 
-    public static CountriesService getInstance() {
+    public static LaunchesService getInstance() {
         if (instance == null) {
-            synchronized (CountriesService.class) {
+            synchronized (LaunchesService.class) {
                 if (instance == null) {
-                    instance = new CountriesService();
+                    instance = new LaunchesService();
                 }
             }
         }
@@ -31,8 +31,8 @@ public class CountriesService {
         return instance;
     }
 
-    public Single<List<CountryModel>> getCountries() {
-        return api.getCountries();
+    public Single<List<LaunchesModel>> getLaunches() {
+        return api.getLaunches();
     }
 
 }

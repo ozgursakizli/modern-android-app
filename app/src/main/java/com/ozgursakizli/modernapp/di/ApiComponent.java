@@ -1,15 +1,15 @@
 package com.ozgursakizli.modernapp.di;
 
-import com.ozgursakizli.modernapp.model.CountriesService;
-import com.ozgursakizli.modernapp.viewmodel.CountryListViewModel;
+import com.ozgursakizli.modernapp.model.LaunchesService;
+import com.ozgursakizli.modernapp.viewmodel.LaunchesListViewModel;
 
 import dagger.Component;
 
 @Component(modules = {ApiModule.class})
 public interface ApiComponent {
 
-    void inject(CountriesService service);
+    void inject(LaunchesService service);
 
-    void inject(CountryListViewModel viewModel);
+    void inject(LaunchesListViewModel viewModel);
 
 }

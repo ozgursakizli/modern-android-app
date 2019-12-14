@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ozgursakizli.modernapp.R;
-import com.ozgursakizli.modernapp.model.CountryModel;
+import com.ozgursakizli.modernapp.model.LaunchesModel;
 import com.ozgursakizli.modernapp.utility.ImageUtils;
 
 import java.util.List;
@@ -19,16 +19,16 @@ import butterknife.ButterKnife;
 
 public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.CountryViewHolder> {
 
-    private List<CountryModel> countries;
+    private List<LaunchesModel> countries;
 
-    public CountryListAdapter(List<CountryModel> countries) {
+    public CountryListAdapter(List<LaunchesModel> countries) {
         this.countries = countries;
     }
 
     @NonNull
     @Override
     public CountryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_country, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_launch, parent, false);
         return new CountryViewHolder(view);
     }
 
@@ -42,7 +42,7 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
         return countries.size();
     }
 
-    public void updateCountries(List<CountryModel> newCountries) {
+    public void updateCountries(List<LaunchesModel> newCountries) {
         countries.clear();
         countries.addAll(newCountries);
         notifyDataSetChanged();
@@ -50,11 +50,11 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
 
     class CountryViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.iv_flag)
+        @BindView(R.id.iv_launch_patch)
         ImageView countryFlag;
         @BindView(R.id.tv_name)
         TextView tvCountryName;
-        @BindView(R.id.tv_capital)
+        @BindView(R.id.tv_year)
         TextView tvCountryCapital;
 
         CountryViewHolder(@NonNull View itemView) {
@@ -62,10 +62,10 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
             ButterKnife.bind(this, itemView);
         }
 
-        void bind(CountryModel country) {
-            tvCountryName.setText(country.getCountryName());
-            tvCountryCapital.setText(country.getCapital());
-            ImageUtils.loadImage(countryFlag, country.getFlag(), ImageUtils.getProgressDrawable(countryFlag.getContext()));
+        void bind(LaunchesModel country) {
+            tvCountryName.setText(country.getMissionName());
+            tvCountryCapital.setText(country.getLaunchYear());
+            ImageUtils.loadImage(countryFlag, country.getLaunchLinks().getMissionPatchSmall(), ImageUtils.getProgressDrawable(countryFlag.getContext()));
         }
 
     }
