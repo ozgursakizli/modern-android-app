@@ -1,8 +1,10 @@
-package com.ozgursakizli.modernapp;
+package com.ozgursakizli.modernapp.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.ozgursakizli.modernapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
