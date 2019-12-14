@@ -21,7 +21,7 @@ public class CountryListViewModel extends ViewModel {
     private void fetchCountries() {
         List<CountryModel> list = new ArrayList<>();
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 20; i++) {
             CountryModel countryModel = new CountryModel("Country " + (i + 1), "Capital " + (i + 1), "");
             list.add(countryModel);
         }
