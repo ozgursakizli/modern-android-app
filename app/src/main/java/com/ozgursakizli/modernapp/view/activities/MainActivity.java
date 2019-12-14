@@ -6,7 +6,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ozgursakizli.modernapp.R;
-import com.ozgursakizli.modernapp.view.adapters.CountryListAdapter;
+import com.ozgursakizli.modernapp.view.adapters.LaunchListAdapter;
 import com.ozgursakizli.modernapp.viewmodel.LaunchesListViewModel;
 
 import java.util.ArrayList;
@@ -31,14 +31,14 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar pbLoadingView;
 
     private LaunchesListViewModel viewModel;
-    private CountryListAdapter adapter;
+    private LaunchListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        adapter = new CountryListAdapter(new ArrayList<>());
+        adapter = new LaunchListAdapter(new ArrayList<>());
         viewModel = ViewModelProviders.of(this).get(LaunchesListViewModel.class);
         viewModel.refresh();
         rvLaunches.setLayoutManager(new LinearLayoutManager(this));
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private void observeViewModel() {
         viewModel.launches.observe(this, countryModels -> {
             if (countryModels != null) {
-                adapter.updateCountries(countryModels);
+                adapter.updateLaunches(countryModels);
                 rvLaunches.setVisibility(View.VISIBLE);
             }
         });
