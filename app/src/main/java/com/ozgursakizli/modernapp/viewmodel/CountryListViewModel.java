@@ -1,9 +1,12 @@
 package com.ozgursakizli.modernapp.viewmodel;
 
+import com.ozgursakizli.modernapp.di.DaggerApiComponent;
 import com.ozgursakizli.modernapp.model.CountriesService;
 import com.ozgursakizli.modernapp.model.CountryModel;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -17,9 +20,15 @@ public class CountryListViewModel extends ViewModel {
     public MutableLiveData<List<CountryModel>> countries = new MutableLiveData<>();
     public MutableLiveData<Boolean> countryLoadError = new MutableLiveData<>();
     public MutableLiveData<Boolean> loading = new MutableLiveData<>();
-
-    private CountriesService countriesService = CountriesService.getInstance();
     private CompositeDisposable disposable = new CompositeDisposable();
+
+    @Inject
+    CountriesService countriesService;
+
+    public CountryListViewModel() {
+        super();
+        DaggerApiComponent.create().inject(this);
+    }
 
     public void refresh() {
         fetchCountries();

@@ -1,6 +1,7 @@
 package com.ozgursakizli.modernapp.di;
 
 import com.ozgursakizli.modernapp.model.CountriesApi;
+import com.ozgursakizli.modernapp.model.CountriesService;
 
 import dagger.Module;
 import dagger.Provides;
@@ -9,18 +10,23 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
-public class ApiModule {
+class ApiModule {
 
     private static final String BASE_URL = "https://raw.githubusercontent.com";
 
     @Provides
-    public CountriesApi provideCountriesApi() {
+    CountriesApi provideCountriesApi() {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
                 .create(CountriesApi.class);
+    }
+
+    @Provides
+    CountriesService provideCountriesService() {
+        return CountriesService.getInstance();
     }
 
 }
