@@ -1,4 +1,4 @@
-package com.ozgursakizli.modernapp.view;
+package com.ozgursakizli.modernapp.view.activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,6 +6,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ozgursakizli.modernapp.R;
+import com.ozgursakizli.modernapp.view.adapters.CountryListAdapter;
 import com.ozgursakizli.modernapp.viewmodel.CountryListViewModel;
 
 import java.util.ArrayList;

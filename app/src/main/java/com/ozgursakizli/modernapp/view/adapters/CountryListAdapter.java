@@ -1,4 +1,4 @@
-package com.ozgursakizli.modernapp.view;
+package com.ozgursakizli.modernapp.view.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +21,7 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
 
     private List<CountryModel> countries;
 
-    CountryListAdapter(List<CountryModel> countries) {
+    public CountryListAdapter(List<CountryModel> countries) {
         this.countries = countries;
     }
 
@@ -42,7 +42,7 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
         return countries.size();
     }
 
-    void updateCountries(List<CountryModel> newCountries) {
+    public void updateCountries(List<CountryModel> newCountries) {
         countries.clear();
         countries.addAll(newCountries);
         notifyDataSetChanged();
