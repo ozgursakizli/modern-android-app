@@ -34,6 +34,8 @@ public class CountryListViewModelTest {
     @InjectMocks
     CountryListViewModel listViewModel = new CountryListViewModel();
 
+    private Single<List<CountryModel>> testSingle;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -44,11 +46,20 @@ public class CountryListViewModelTest {
         CountryModel countryModel = new CountryModel("countryName", "capital", "flag");
         ArrayList<CountryModel> countriesList = new ArrayList<>();
         countriesList.add(countryModel);
-        Single<List<CountryModel>> testSingle = Single.just(countriesList);
+        testSingle = Single.just(countriesList);
         Mockito.when(countriesService.getCountries()).thenReturn(testSingle);
         listViewModel.refresh();
         Assert.assertEquals(1, listViewModel.countries.getValue().size());
         Assert.assertEquals(false, listViewModel.countryLoadError.getValue());
+        Assert.assertEquals(false, listViewModel.loading.getValue());
+    }
+
+    @Test
+    public void getCountriesFail() {
+        testSingle = Single.error(new Throwable());
+        Mockito.when(countriesService.getCountries()).thenReturn(testSingle);
+        listViewModel.refresh();
+        Assert.assertEquals(true, listViewModel.countryLoadError.getValue());
         Assert.assertEquals(false, listViewModel.loading.getValue());
     }
 
