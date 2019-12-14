@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.ozgursakizli.modernapp.R;
 import com.ozgursakizli.modernapp.model.CountryModel;
+import com.ozgursakizli.modernapp.utility.ImageUtils;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
 
     private List<CountryModel> countries;
 
-    public CountryListAdapter(List<CountryModel> countries) {
+    CountryListAdapter(List<CountryModel> countries) {
         this.countries = countries;
     }
 
@@ -41,7 +42,7 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
         return countries.size();
     }
 
-    public void updateCountries(List<CountryModel> newCountries) {
+    void updateCountries(List<CountryModel> newCountries) {
         countries.clear();
         countries.addAll(newCountries);
         notifyDataSetChanged();
@@ -64,6 +65,7 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
         void bind(CountryModel country) {
             tvCountryName.setText(country.getCountryName());
             tvCountryCapital.setText(country.getCapital());
+            ImageUtils.loadImage(countryFlag, country.getFlag(), ImageUtils.getProgressDrawable(countryFlag.getContext()));
         }
 
     }
