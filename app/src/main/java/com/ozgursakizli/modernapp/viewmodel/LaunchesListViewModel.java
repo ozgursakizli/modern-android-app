@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.ozgursakizli.modernapp.di.DaggerApiComponent;
 import com.ozgursakizli.modernapp.model.LaunchesModel;
-import com.ozgursakizli.modernapp.model.LaunchesService;
+import com.ozgursakizli.modernapp.service.LaunchesService;
 
 import java.util.List;
 

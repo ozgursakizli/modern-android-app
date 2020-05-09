@@ -1,6 +1,6 @@
 package com.ozgursakizli.modernapp.di;
 
-import com.ozgursakizli.modernapp.model.LaunchesService;
+import com.ozgursakizli.modernapp.service.LaunchesService;
 import com.ozgursakizli.modernapp.viewmodel.LaunchesListViewModel;
 
 import dagger.Component;

@@ -1,8 +1,10 @@
 package com.ozgursakizli.modernapp;
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+
 import com.ozgursakizli.modernapp.model.LaunchLinks;
 import com.ozgursakizli.modernapp.model.LaunchesModel;
-import com.ozgursakizli.modernapp.model.LaunchesService;
+import com.ozgursakizli.modernapp.service.LaunchesService;
 import com.ozgursakizli.modernapp.viewmodel.LaunchesListViewModel;
 
 import org.junit.Assert;
@@ -17,7 +19,6 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.android.plugins.RxAndroidPlugins;
@@ -35,7 +36,8 @@ public class LaunchesListViewModelTest {
     @InjectMocks
     LaunchesListViewModel listViewModel = new LaunchesListViewModel();
 
-    private Single<List<LaunchesModel>> testSingle;
+    private Single<List<LaunchesModel>> testSingleList;
+    private Single<LaunchesModel> testSingle;
 
     @Before
     public void setup() {
@@ -43,12 +45,12 @@ public class LaunchesListViewModelTest {
     }
 
     @Test
-    public void getCountriesSuccess() {
+    public void getLaunchesSuccess() {
         LaunchesModel launchesModel = new LaunchesModel("missionName", "2020", new LaunchLinks("url"));
-        ArrayList<LaunchesModel> countriesList = new ArrayList<>();
-        countriesList.add(launchesModel);
-        testSingle = Single.just(countriesList);
-        Mockito.when(launchesService.getLaunches()).thenReturn(testSingle);
+        ArrayList<LaunchesModel> launchesModels = new ArrayList<>();
+        launchesModels.add(launchesModel);
+        testSingleList = Single.just(launchesModels);
+        Mockito.when(launchesService.getLaunches()).thenReturn(testSingleList);
         listViewModel.refresh();
         Assert.assertEquals(1, listViewModel.launches.getValue().size());
         Assert.assertEquals(false, listViewModel.launchesLoadError.getValue());
@@ -56,12 +58,29 @@ public class LaunchesListViewModelTest {
     }
 
     @Test
-    public void getCountriesFail() {
-        testSingle = Single.error(new Throwable());
-        Mockito.when(launchesService.getLaunches()).thenReturn(testSingle);
+    public void getLaunchesFail() {
+        testSingleList = Single.error(new Throwable());
+        Mockito.when(launchesService.getLaunches()).thenReturn(testSingleList);
         listViewModel.refresh();
         Assert.assertEquals(true, listViewModel.launchesLoadError.getValue());
         Assert.assertEquals(false, listViewModel.loading.getValue());
+    }
+
+    @Test
+    public void getLatestLaunchSuccess() {
+        LaunchesModel launchesModel = new LaunchesModel("latestMission", "2020", new LaunchLinks("url"));
+        testSingle = Single.just(launchesModel);
+        Mockito.when(launchesService.getLatestLaunch()).thenReturn(testSingle);
+        listViewModel.fetchLatestLaunch();
+        Assert.assertNotNull(listViewModel.latestLaunch.getValue());
+    }
+
+    @Test
+    public void getLatestLaunchFail() {
+        testSingle = Single.error(new Throwable());
+        Mockito.when(launchesService.getLatestLaunch()).thenReturn(testSingle);
+        listViewModel.fetchLatestLaunch();
+        Assert.assertNull(listViewModel.latestLaunch.getValue());
     }
 
     @Before

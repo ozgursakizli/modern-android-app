@@ -1,6 +1,7 @@
-package com.ozgursakizli.modernapp.model;
+package com.ozgursakizli.modernapp.service;
 
 import com.ozgursakizli.modernapp.di.DaggerApiComponent;
+import com.ozgursakizli.modernapp.model.LaunchesModel;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.ozgursakizli.modernapp.di;
 
-import com.ozgursakizli.modernapp.model.LaunchesApi;
-import com.ozgursakizli.modernapp.model.LaunchesService;
+import com.ozgursakizli.modernapp.service.LaunchesApi;
+import com.ozgursakizli.modernapp.service.LaunchesService;
 
 import dagger.Module;
 import dagger.Provides;
