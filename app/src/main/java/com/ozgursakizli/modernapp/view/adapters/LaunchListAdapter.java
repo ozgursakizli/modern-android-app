@@ -48,7 +48,7 @@ public class LaunchListAdapter extends RecyclerView.Adapter<LaunchListAdapter.La
         notifyDataSetChanged();
     }
 
-    class LaunchViewHolder extends RecyclerView.ViewHolder {
+    static class LaunchViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.iv_launch_patch)
         ImageView launchPatch;
