@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_latest_event"
+        android:icon="@drawable/ic_event"
+        android:title="@string/latest_event"
+        app:showAsAction="ifRoom" />
+</menu>

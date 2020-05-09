@@ -10,4 +10,7 @@ public interface LaunchesApi {
     @GET("launches")
     Single<List<LaunchesModel>> getLaunches();
 
+    @GET("launches/latest")
+    Single<LaunchesModel> getLatestLaunch();
+
 }

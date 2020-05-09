@@ -35,4 +35,6 @@ public class LaunchesService {
         return api.getLaunches();
     }
 
+    public Single<LaunchesModel> getLatestLaunch() { return api.getLatestLaunch(); }
+
 }
